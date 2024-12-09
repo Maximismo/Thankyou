@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Thank You</title>
+
+    <style>
+
+        body {
+
+            font-family: Arial, sans-serif;
+
+            text-align: center;
+
+            padding: 20px;
+
+        }
+
+        .container {
+
+            margin-top: 50px;
+
+        }
+
+        .code {
+
+            font-size: 24px;
+
+            font-weight: bold;
+
+            color: #2c3e50;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Thank You for Your Submission!</h1>
+
+        <p>Your unique code is:</p>
+
+        <div class="code" id="uniqueCode">Loading...</div>
+
+    </div>
+
+
+
+    <script>
+
+        // Extract the code from the URL
+
+        const urlParams = new URLSearchParams(window.location.search);
+
+        const code = urlParams.get('code');
+
+
+
+        // Display the code in the HTML
+
+        document.getElementById('uniqueCode').textContent = code || 'No code provided';
+
+    </script>
+
+</body>
+
+</html>
