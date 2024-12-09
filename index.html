@@ -1,52 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thank You</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 20px;
-            background-color: #f7f9fc;
-        }
-        .container {
-            margin-top: 50px;
-        }
-        .code {
-            font-size: 24px;
-            font-weight: bold;
-            color: #2c3e50;
-        }
-        .fallback {
-            color: #e74c3c;
-            font-size: 18px;
-            margin-top: 10px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Thank You for Your Submission!</h1>
-        <p>Your unique code is:</p>
-        <div class="code" id="uniqueCode">Loading...</div>
-        <div class="fallback" id="fallbackMessage" style="display: none;">
-            Code not found. Please contact support if this persists.
-        </div>
-    </div>
+    <title>Retrieve Your Unique Code</title>
     <script>
-        // Extract the code from the URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const code = urlParams.get('code');
-
-        // Display the code or show the fallback message
-        if (code) {
-            document.getElementById('uniqueCode').textContent = code;
-        } else {
-            document.getElementById('uniqueCode').textContent = 'No code provided';
-            document.getElementById('fallbackMessage').style.display = 'block';
+        async function getCode() {
+            const submissionId = document.getElementById("submissionId").value;
+            const response = await fetch(`https://your-database-endpoint/${submissionId}`);
+            const data = await response.json();
+            document.getElementById("result").innerText = data.code ? `Your Unique Code: ${data.code}` : "Submission ID not found.";
         }
     </script>
+</head>
+<body>
+    <h1>Retrieve Your Unique Code</h1>
+    <p>Enter your Submission ID below:</p>
+    <input type="text" id="submissionId" placeholder="Enter Submission ID">
+    <button onclick="getCode()">Submit</button>
+    <p id="result"></p>
 </body>
 </html>
