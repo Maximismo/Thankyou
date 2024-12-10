@@ -3,47 +3,43 @@
 <head>
     <title>Retrieve Your Unique Code</title>
     <script>
-        async function getCode() {
-            // Get Submission ID from input field
-            const submissionId = document.getElementById("submissionId").value;
-
-            // Validate input
-            if (!submissionId) {
-                document.getElementById("result").innerText = "Please enter a valid Submission ID.";
-                return;
-            }
-
-            // Show loading message
-            document.getElementById("result").innerText = "Fetching your unique code...";
-
-            try {
-                // Fetch data from the backend
-                const response = await fetch(`https://your-database-endpoint/${submissionId}`);
-                
-                // Check if the response is okay
-                if (!response.ok) {
-                    throw new Error("Network response was not ok");
-                }
-
-                // Parse the response as JSON
-                const data = await response.json();
-
-                // Display the unique code or an error message
-                document.getElementById("result").innerText = data.code
-                    ? `Your Unique Code: ${data.code}`
-                    : "Submission ID not found.";
-            } catch (error) {
-                console.error("Error fetching the unique code:", error);
-                document.getElementById("result").innerText = "An error occurred. Please try again later.";
+        // Function to extract 'code' parameter from the URL
+        function getCodeFromURL() {
+            const params = new URLSearchParams(window.location.search);
+            const code = params.get('code'); // Get the 'code' parameter
+            if (code) {
+                document.getElementById("result").innerText = `Your Unique Code: ${code}`;
+            } else {
+                document.getElementById("result").innerText = "Code not found. Please check your link.";
             }
         }
+
+        // Run function on page load
+        window.onload = getCodeFromURL;
     </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        h1 {
+            color: #4CAF50;
+        }
+
+        p {
+            font-size: 18px;
+        }
+
+        #result {
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
 </head>
 <body>
     <h1>Retrieve Your Unique Code</h1>
-    <p>Enter your Submission ID below:</p>
-    <input type="text" id="submissionId" placeholder="Enter Submission ID">
-    <button onclick="getCode()">Submit</button>
     <p id="result"></p>
 </body>
 </html>
