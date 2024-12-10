@@ -13,7 +13,7 @@
 
             try {
                 // Simulate fetching data from your database
-                const response = await fetch("https://your-database-endpoint", {
+                const response = await fetch("concat('https://maximismo.github.io/Thankyou/?code=',outputs('Unique_Code'))", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
