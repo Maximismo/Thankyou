@@ -13,7 +13,7 @@
 
             try {
                 // Simulate fetching data from your database
-                const response = await fetch('https://maximismo.github.io/Thankyou/?code=',${'Unique_Code'}', {
+                const response = await fetch('https://maximismo.github.io/Thankyou/?submissionId=${submissionId}', {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
