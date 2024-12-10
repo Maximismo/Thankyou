@@ -4,73 +4,39 @@
     <title>Retrieve Your Unique Code</title>
     <script>
         async function getCode() {
-            // Get the entered submission ID
             const submissionId = document.getElementById("submissionId").value;
 
             if (!submissionId) {
-                document.getElementById("result").innerText = "Please enter your submission ID.";
+                document.getElementById("result").innerText = "Please enter your Submission ID.";
                 return;
             }
 
-            // Simulate retrieving the unique code from your data source
-            const response = await fetch("https://your-database-endpoint", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ submissionId }),
-            });
+            try {
+                // Simulate fetching data from your database
+                const response = await fetch("https://your-database-endpoint", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ submissionId }),
+                });
 
-            const data = await response.json();
+                const data = await response.json();
 
-            // Display the result
-            if (data.code) {
-                document.getElementById("result").innerText = `Your Unique Code: ${data.code}`;
-            } else {
-                document.getElementById("result").innerText = "Submission ID not found. Please check and try again.";
+                if (data.code) {
+                    document.getElementById("result").innerText = `Your Unique Code: ${data.code}`;
+                } else {
+                    document.getElementById("result").innerText = "Submission ID not found. Please check and try again.";
+                }
+            } catch (error) {
+                document.getElementById("result").innerText = "An error occurred. Please try again later.";
             }
         }
     </script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin-top: 50px;
-        }
-
-        h1 {
-            color: #4CAF50;
-        }
-
-        p {
-            font-size: 18px;
-        }
-
-        input {
-            margin-top: 20px;
-            padding: 10px;
-            width: 300px;
-        }
-
-        button {
-            padding: 10px 20px;
-            margin-top: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-
-        #result {
-            font-weight: bold;
-            margin-top: 20px;
-            color: #333;
-        }
-    </style>
 </head>
 <body>
     <h1>Retrieve Your Unique Code</h1>
-    <p>Enter your Submission ID below to retrieve your unique code:</p>
+    <p>Enter your Submission ID below:</p>
     <input type="text" id="submissionId" placeholder="Enter Submission ID">
     <button onclick="getCode()">Submit</button>
     <p id="result"></p>
